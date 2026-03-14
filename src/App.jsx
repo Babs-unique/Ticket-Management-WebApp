@@ -18,11 +18,21 @@ function App() {
       <Route path='/login' element={<Login/>}/>
       <Route path='/SignUp' element={<SignUp/>}/>
       <Route path='/Dashboard' element={
+        <ProtectedRoutes>
           <DashBoard/>
-        }/>
-        <Route path='/Ticket' element={<Ticket/>}/>
-        <Route path='/Settings' element={<SettingPage/>}/>
-        <Route path='*' element={<NotFound/>}/>
+        </ProtectedRoutes>
+      }/>
+      <Route path='/Ticket' element={
+        <ProtectedRoutes>
+          <Ticket/>
+        </ProtectedRoutes>
+      }/>
+      <Route path='/Settings' element={
+        <ProtectedRoutes>
+          <SettingPage/>
+        </ProtectedRoutes>
+      }/>
+      <Route path='*' element={<NotFound/>}/>
     </Routes>
   )
 }
