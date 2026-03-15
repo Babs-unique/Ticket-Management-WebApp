@@ -1,82 +1,79 @@
 import React from 'react'
 import { useState } from 'react';
-import { Link, replace, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { togglePassword } from '../hooks/togglePassword';
 import eye from "../assets/eye.svg"
 import eyeOff from "../assets/eye-off.svg"
+import { useRegisterMutation } from '../feature/authApiSlice';
 
 export const SignUp = () => {
-    const [error,setError] = useState("");
-    const [success,setSuccess] = useState("")
-    const [redirect , setRedirect] = useState("")
-    const navigate = useNavigate();
-    function handleSignUp (formData){
-      /*   e.preventDefault(); */
-        const users = JSON.parse(localStorage.getItem("users")) || [];
-
-        const userFound = users.some((user)=> user.email === email && user.password === password)
-        if(!userFound) {
-            setSuccess("User already Exists")
-            setRedirect("Kindly Login to your account...")
-        }else{
-            setSuccess("Account Created Successfully!")
-            setRedirect("Redirecting you to the Login Page...")
-            navigate("/login", replace)
-        }
-        console.log(userFound)
-        const email = formData.get("email");
-        const password = formData.get("password");
-        const confirmPassword = formData.get("confirm")
-        if(password.length < 6 || !password.match(/[A-Z]/) || !password.match(/[0-9]/)){
-            setError("Enter a valid password ");
-            return;
-        }
-        if(password !== confirmPassword){
-            setError("Password doesn't match");
-            return;
-        }
-
-        setError("")
-        users.push({email,password});
-        localStorage.setItem("user",JSON.stringify(users))
-    }
+    const [name , setName] = useState("")
+    const [ email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    
+    const [register, {isLoading}] = useRegisterMutation();
     const {toggle , handleToggle} = togglePassword()
 
+    const navigate = useNavigate();
+
+    const handleSignUp = async (e) => {
+        e.preventDefault();
+        try{
+            if(!password){
+                toast.error("Enter your password");
+                return;
+            }
+            const userData = await register({name , email, password}).unwrap();
+            console.log("Registration successful:", userData);
+            if(userData){
+                setName("");
+                setEmail("");
+                setPassword("");
+            }
+            toast.success("Registration successful! Redirecting to login page...");
+            setTimeout(() => {
+                navigate("/login", { replace: true });
+            }, 2000);
+        }
+        catch(err){
+            console.error("Registration failed:", err);
+            const message = err?.data?.message || "Registration failed. Please try again.";
+            toast.error(message);
+        }
+    }
     return (
         <main className='signUp'>
-            <form className='signup-form' action={handleSignUp}>
+            <form className='signup-form' onSubmit={handleSignUp}>
                 <h2>Create an Account</h2>
                 <div>
-                <label htmlFor="email">Email</label>
+                <label htmlFor="name">Name</label>
                 <input 
-                    type="email"
-                    name="email" 
+                    type="text"
+                    name="name" 
+                    id="name" 
+                    placeholder='john doe'
+                    onChange={(e) => setName(e.target.value)} 
+                    />
+                </div>
+                <div className='password-input'>
+                <label htmlFor="email">Email</label>
+                <input
+                    type="email" 
+                    name="email"
                     id="email" 
-                    placeholder='you@example.com'/>
+                    placeholder='Enter your Email Address'
+                    onChange={(e) => setEmail(e.target.value)}
+                    />
                 </div>
                 <div className='password-input'>
                 <label htmlFor="password">Password</label>
-                <input
-                    type={toggle ? "password" : "text"} 
-                    name="password"
-                    id="password" 
-                    placeholder='Enter a secure password' />
-                     <img 
-                        src={toggle ? eye : eyeOff} 
-                        alt="toggle-password-visibility" 
-                        srcset="" 
-                        className='eye eye-2'
-                        onClick={handleToggle}
-                        />
-                <p>{error}</p>
-                </div>
-                <div className='password-input'>
-                <label htmlFor="confirm">Confirm Password</label>
                 <input 
                 type={toggle ? "password" : "text"} 
-                name="confirm" 
-                id="confirm" 
-                placeholder='Re-enter your password' 
+                name="password" 
+                id="password" 
+                placeholder=' Enter your Password' 
+                onChange={(e) => setPassword(e.target.value)}
                 required/>
                 <img 
                     src={toggle ? eye : eyeOff} 
@@ -85,15 +82,10 @@ export const SignUp = () => {
                     className='eye eye-2'
                     onClick={handleToggle}
                     />
-                <p>{error}</p>
                 </div>
-                <button>Sign Up</button>
+                <button disabled={isLoading}>Sign Up</button>
                 <p>Already have an account? <Link to="/login">Login</Link></p>
             </form>
-            { success &&  <div className='successMsg'>
-                <h3>{success} </h3>
-                <p>{redirect}</p>
-            </div>}
         </main>
     )
 }

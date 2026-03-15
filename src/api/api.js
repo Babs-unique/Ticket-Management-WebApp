@@ -2,8 +2,11 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { logout } from '../feature/authSlice';
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: import.meta.env.API_BASE_URL,
+    baseUrl: import.meta.env.VITE_API_BASE_URL || 'https://ticket-management-webapp-backend.onrender.com',
     credentials: 'include',
+    prepareHeaders: (headers) => {
+        return headers;
+    }
 })
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
@@ -20,7 +23,8 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
             api.dispatch(logout()); 
         }
         }
-    }
+    return result;
+}
 
 export const api = createApi({
     reducerPath: 'api',
