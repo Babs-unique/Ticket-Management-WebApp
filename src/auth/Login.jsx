@@ -30,7 +30,7 @@ export const Login = () => {
                     setEmail("");
                     setPassword("");
                 }
-                dispatch(setCredentials(userData.user));
+                dispatch(setCredentials(userData));
                 toast.success("Login successful! Redirecting to dashboard...");
                 setTimeout(() => {
                     navigate("/Dashboard", { replace: true });

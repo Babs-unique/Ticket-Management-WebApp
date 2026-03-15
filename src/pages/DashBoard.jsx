@@ -4,8 +4,10 @@ import { Header } from "../components/Header"
 import ticketImage from "../assets/invoice.png"
 import openFile from "../assets/open-folder.png"
 import checkedImage from "../assets/comment.png"
+import { useGetProfileQuery } from "../feature/authApiSlice"
 
 export const DashBoard = () => {
+  const { data: profile } = useGetProfileQuery()
   const [ popUp , setPopUp] =  useState(false)
   const [open, setOpen] = useState(false);
   
