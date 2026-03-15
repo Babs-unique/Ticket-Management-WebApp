@@ -1,6 +1,9 @@
 import React from 'react'
 import { useState } from 'react';
 import { Link, replace, useNavigate } from 'react-router-dom';
+import { togglePassword } from '../hooks/togglePassword';
+import eye from "../assets/eye.svg"
+import eyeOff from "../assets/eye-off.svg"
 
 export const SignUp = () => {
     const [error,setError] = useState("");
@@ -37,7 +40,7 @@ export const SignUp = () => {
         users.push({email,password});
         localStorage.setItem("user",JSON.stringify(users))
     }
-
+    const {toggle , handleToggle} = togglePassword()
 
     return (
         <main className='signUp'>
@@ -51,23 +54,37 @@ export const SignUp = () => {
                     id="email" 
                     placeholder='you@example.com'/>
                 </div>
-                <div>
+                <div className='password-input'>
                 <label htmlFor="password">Password</label>
                 <input
-                    type="password" 
+                    type={toggle ? "password" : "text"} 
                     name="password"
                     id="password" 
                     placeholder='Enter a secure password' />
+                     <img 
+                        src={toggle ? eye : eyeOff} 
+                        alt="toggle-password-visibility" 
+                        srcset="" 
+                        className='eye eye-2'
+                        onClick={handleToggle}
+                        />
                 <p>{error}</p>
                 </div>
-                <div>
+                <div className='password-input'>
                 <label htmlFor="confirm">Confirm Password</label>
                 <input 
-                type="password" 
+                type={toggle ? "password" : "text"} 
                 name="confirm" 
                 id="confirm" 
                 placeholder='Re-enter your password' 
                 required/>
+                <img 
+                    src={toggle ? eye : eyeOff} 
+                    alt="toggle-password-visibility" 
+                    srcset="" 
+                    className='eye eye-2'
+                    onClick={handleToggle}
+                    />
                 <p>{error}</p>
                 </div>
                 <button>Sign Up</button>

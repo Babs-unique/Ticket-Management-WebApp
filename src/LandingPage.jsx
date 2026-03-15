@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Logo from '../assets/icons8-ticket-100.png'
+import Logo from '../src/assets/icons8-ticket-100.png'
 import dashboardImage from "./assets/dashboard.png"
 import fastImage from "./assets/thunder.png"
 import collaborationImg from "./assets/team.png"

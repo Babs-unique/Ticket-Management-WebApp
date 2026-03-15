@@ -2,6 +2,9 @@ import React from 'react'
 import { useState } from 'react';
 import { replace, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import eye from "../assets/eye.svg"
+import eyeOff from "../assets/eye-off.svg"
+import { togglePassword } from '../hooks/togglePassword';
 export const Login = () => {
     const[error , setError] = useState("");
     const [success , setSuccess] = useState("")
@@ -36,24 +39,36 @@ export const Login = () => {
         setError("")
     
     }
+        const {toggle , handleToggle} = togglePassword();
     return (
         <main className='login'>
         <form className='login-form' action={handleLogin}>
             <h2>Login to TicketFlow</h2>
             <label htmlFor="email">Email</label>
+            <div>
             <input 
             type="email" 
             name="email" 
             id="email" 
             placeholder='you@example.com' 
             required/>
+            </div>
             <label htmlFor="password">Password</label>
+            <div className='password-input'>
             <input 
-                type="password" 
+                type={toggle ? "password" : "text"} 
                 name="password" 
                 id="password" 
                 placeholder='Enter your password'
                 required/>
+                <img 
+                src={toggle ? eye : eyeOff} 
+                alt="toggle-password-visibility" 
+                srcset="" 
+                className='eye'
+                onClick={handleToggle}
+                />
+                </div>
             <p>{error}</p>
             <button>Login</button>
             <div>
