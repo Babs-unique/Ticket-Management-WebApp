@@ -69,7 +69,7 @@ export const SignUp = () => {
                 <div className='password-input'>
                 <label htmlFor="password">Password</label>
                 <input 
-                type={toggle ? "password" : "text"} 
+                type={toggle ? "text" : "password"} 
                 name="password" 
                 id="password" 
                 placeholder=' Enter your Password' 
@@ -80,6 +80,8 @@ export const SignUp = () => {
                     alt="toggle-password-visibility" 
                     srcset="" 
                     className='eye eye-2'
+                    width={18}
+                    height={18}
                     onClick={handleToggle}
                     />
                 </div>

@@ -22,6 +22,7 @@ export const DashBoard = () => {
 
   return (
     <main>
+      <div className='glow-circle'></div>
       <Header open={open} onToggle={handleOpen} onNewTicket={popUpScreen} />
       <section>
         <h1 className="dash">Dashboard</h1>

@@ -24,9 +24,10 @@ export const authApiSlice = api.injectEndpoints({
         }),
         getProfile: builder.query({
             query: () => ({
-                url : '/api/users/profile',
-                ProvidesTags : ['User']
-            })
+                url : '/api/users/me',
+                method: 'GET'
+            }),
+            providesTags : ['User']
         })
     })
 })

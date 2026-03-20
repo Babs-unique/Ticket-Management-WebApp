@@ -59,7 +59,7 @@ export const Login = () => {
             <label htmlFor="password">Password</label>
             <div className='password-input'>
             <input 
-                type={toggle ? "password" : "text"} 
+                type={toggle ? "text" : "password"} 
                 name="password" 
                 id="password" 
                 placeholder='Enter your password'
@@ -70,6 +70,8 @@ export const Login = () => {
                 alt="toggle-password-visibility" 
                 srcset="" 
                 className='eye'
+                width={18}
+                height={18}
                 onClick={handleToggle}
                 />
                 </div>

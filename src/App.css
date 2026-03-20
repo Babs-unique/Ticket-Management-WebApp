@@ -9,6 +9,13 @@
   --text-color-primary:#FFFFFF;
   --tex-color:#000000;
   --text-color-secondary: #b3b8c5;
+  --box-shadow : 1px 2px 8px #00ff8869;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* outline: 1px solid red; */
 }
 /* LANDING PAGE STYLES */
 .glow-circle{
@@ -23,7 +30,7 @@
 }
 header{
   margin: 0;
-  padding: 0;
+  padding: 10px;
 }
 nav ul>div{
   display: flex;
@@ -71,6 +78,7 @@ p{
   align-items: center;
   height: 40vh;
   margin-bottom: 10%;
+  gap: 12px;
 }
 .hero-section h1{
   margin-bottom: 0;
@@ -189,7 +197,7 @@ footer>p{
   padding: 20px;
   gap: 10px;
   border-radius: 10px;
-  box-shadow: 1px 1px 15px #00ff8869;
+  box-shadow: var(--box-shadow);
 }
 .login,
 .signUp{
@@ -705,7 +713,7 @@ aside{
   gap: 10px;
   border-radius: 15px;
   margin: auto;
-  box-shadow: 1px 1px 15px #00ff8869;
+  box-shadow: var(--box-shadow);
 }
 .form-popUp{
   display: flex;
@@ -744,12 +752,12 @@ aside{
 }
 .eye{
   position: absolute;
-  right: 0;
-  top: 10px;
+  right: 2%;
+  top: 20%;
   cursor: pointer;
 }
 .eye-2{
-  top: 36px;
+  top: 60%;
 }
 .password-input{
   position: relative;
@@ -825,7 +833,7 @@ aside{
   }
   .glow-circle {
     top: -5%;
-    left: 5%;
+    width: 200px;
   }
   .login-form,
   .signup-form{
@@ -1046,5 +1054,9 @@ aside{
   }
   .ticket-search div {
     gap: 10px;
+  }
+    .glow-circle {
+    top: -5%;
+    width: 300px;
   }
 }
