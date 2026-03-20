@@ -25,7 +25,7 @@ export const DashBoard = () => {
       <div className='glow-circle'></div>
       <Header open={open} onToggle={handleOpen} onNewTicket={popUpScreen} />
       <section>
-        <h1 className="dash">Dashboard</h1>
+        <h1 className="dash-1">Dashboard</h1>
         <div className="cards">
           <div className="card">
               <div>
@@ -51,7 +51,7 @@ export const DashBoard = () => {
         </div>
       </section>
       <section>
-        <h2>Recent Tickets</h2>
+        <h2 className="dash">Recent Tickets</h2>
         <div className="ticket-metrics">
           <div>
             <p>TICKET ID</p>

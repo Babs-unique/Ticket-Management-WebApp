@@ -10,6 +10,7 @@ import { useLoginMutation } from '../feature/authApiSlice'
 import { setCredentials } from '../feature/authSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Loader from "../components/loader"
 export const Login = () => {
     const [email , setEmail] = useState("");
     const [password , setPassword] = useState("");
@@ -75,7 +76,9 @@ export const Login = () => {
                 onClick={handleToggle}
                 />
                 </div>
-            <button disabled={isLoading}>Login</button>
+            { isLoading ? 
+            <button className="loading"><Loader/> </button>: 
+            <button disabled={isLoading}>Login</button>}
             <div>
             <p>Don't have an account?<Link to="/SignUp"> Sign up</Link></p>
             </div>

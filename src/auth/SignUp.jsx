@@ -6,6 +6,7 @@ import { togglePassword } from '../hooks/togglePassword';
 import eye from "../assets/eye.svg"
 import eyeOff from "../assets/eye-off.svg"
 import { useRegisterMutation } from '../feature/authApiSlice';
+import Loader from '../components/loader';
 
 export const SignUp = () => {
     const [name , setName] = useState("")
@@ -85,7 +86,7 @@ export const SignUp = () => {
                     onClick={handleToggle}
                     />
                 </div>
-                <button disabled={isLoading}>Sign Up</button>
+                {isLoading ? <button className="loading"><Loader/> </button>: <button disabled={isLoading}>Sign Up</button>}
                 <p>Already have an account? <Link to="/login">Login</Link></p>
             </form>
         </main>

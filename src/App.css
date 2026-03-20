@@ -15,6 +15,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  overflow-x: hidden;
   /* outline: 1px solid red; */
 }
 /* LANDING PAGE STYLES */
@@ -98,6 +99,13 @@ p{
   font-weight: 800;
   text-decoration: none;
 }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
 .hamburger{
   display: none;
 }
@@ -216,7 +224,8 @@ footer>p{
   background-color: transparent;
   width: 100%;
 }
-.login form button{
+.login form button,
+.loading{
   margin-top: 10px;
   background-color: var(--button-color);
   color: var(--background-color);
@@ -345,6 +354,30 @@ footer>p{
   color: var(--tex-color);
   font-weight: 900;
   border-radius: 10px;
+}
+
+/* Show desktop button by default, hide mobile button */
+.desktop-new-ticket {
+  display: inline-block;
+}
+
+.mobile-new-ticket {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  /* Hide desktop button on mobile */
+  .desktop-new-ticket {
+    display: none;
+  }
+  
+  /* Show mobile button in navbar */
+  .mobile-new-ticket {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px 15px;
+  }
 }
 .dashboard-link:focus,
 .dashboard-link:hover,
@@ -811,6 +844,16 @@ aside{
   right: 5%;
   left: 5%;
 }
+.dash,
+.dash-1{
+  margin-bottom: 20px;
+}
+.dash-1{
+  font-size: clamp(20px, 5vw, 36px);
+}
+.Toastify{
+  position: absolute;
+}
 @media (min-width:320px) and (max-width : 767px) {
   body,html{
     overflow-x: hidden;
@@ -855,6 +898,7 @@ aside{
     top: 11%;
     color: #000000;
     transform: translateX(100%);
+    padding: 15px 15px;
   }
   .header nav h2{
     font-size: 20px;
@@ -873,9 +917,15 @@ aside{
     background-color: #00FF88;
     z-index: 10000;
   }
-  .new-ticket{
-    padding: 5px 10px;
-    margin-left: 50px;
+  .desktop-new-ticket{
+    display: none;
+  }
+  .mobile-new-ticket {
+    display: block !important;
+    width: 50%;
+    text-align: center;
+    padding: 10px 15px;
+    margin-top: 20px;
   }
   .dash{
     font-size: 28px;
@@ -932,6 +982,9 @@ aside{
     background-color: transparent;
     color: #00FF88;
   }
+  .Toastify{
+    position: absolute;
+  }
   .ticket-links div{
     background-color:#00FF88;
     padding: 10px;
@@ -959,6 +1012,9 @@ aside{
     padding: 20px;
     width: 90%;
   }
+  .dash{
+    margin-bottom: 20px;
+  }
   
   .all-tickets{
     font-size: 24px;
@@ -980,18 +1036,20 @@ aside{
   }
   .ticket-search div{
     gap: 5px;
+    padding: 5px 10px;
   }
   .ticket-search div>p{
     font-size: 14px;
   }
   .tickets{
     width: fit-content;
+    padding: 15px;
   }
   .ticket section{
     width: 100%;
   }
   .ticket-show{
-    margin-top: 16%;
+    margin-top: 10%;
   }
   .ticket-search div p:hover,
   .ticket-search div p:active,
@@ -1015,7 +1073,8 @@ aside{
 }
 .user-profile,
 .account-settings{
-  width: 100%;
+  width: max-content;
+  margin-top: 15px;
   padding: 20px 12px;
 }
 .setting-preference{
@@ -1043,11 +1102,15 @@ aside{
 }
 @media (min-width:768px) and (max-width:1024px) {
   main{
-    width: max-content;
+    width: 100%;
+    max-width: 1024px;;
   }
   .settings-aside{
     padding-left:  20px;
     width: 16%;
+  }
+  .Toastify{
+    position: absolute;
   }
   .profile-name span{
     font-size: 14px;
