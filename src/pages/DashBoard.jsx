@@ -5,11 +5,15 @@ import ticketImage from "../assets/invoice.png"
 import openFile from "../assets/open-folder.png"
 import checkedImage from "../assets/comment.png"
 import { useGetProfileQuery } from "../feature/authApiSlice"
+import { useGetTicketsQuery } from "../feature/ticketApiSlice"
 
 export const DashBoard = () => {
   const { data: profile } = useGetProfileQuery()
+  const { data , isLoading , isError } = useGetTicketsQuery()
   const [ popUp , setPopUp] =  useState(false)
   const [open, setOpen] = useState(false);
+
+
   
   const handleOpen = () =>{
           setOpen(prev => !prev)
@@ -19,7 +23,12 @@ export const DashBoard = () => {
       setPopUp(prev => !prev)
   }
 
-
+  if(isLoading){
+    return <div>Loading...</div>
+  }
+  if(isError){
+    return <div>Error fetching tickets</div>
+  }
   return (
     <main>
       <div className='glow-circle'></div>
