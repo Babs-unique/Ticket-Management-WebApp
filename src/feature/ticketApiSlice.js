@@ -4,8 +4,11 @@ import {api} from '../api/api.js';
 export const ticketApiSlice = api.injectEndpoints({
     endpoints: (builder) => ({
         getTickets: builder.query({
+            query: () => ({
             url : '/api/tickets/getAllTickets',
-            providesTags : ['Tickets']
+            providesTags : ['Tickets'],
+            method : 'GET'
+            })
         }),
         createTicket: builder.mutation({
             query: (ticketData) => ({
@@ -33,6 +36,7 @@ export const ticketApiSlice = api.injectEndpoints({
         filterByStatus: builder.query({
             query: (status) => ({
                 url: `/api/tickets/filterByStatus?status=${status}`,
+                method : 'GET',
             }),
             providesTags: ['Tickets']
         }),

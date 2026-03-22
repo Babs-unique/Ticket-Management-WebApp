@@ -6,6 +6,7 @@ import fastImage from "./assets/thunder.png"
 import collaborationImg from "./assets/team.png"
 
 export const LandingPage = () => {
+    const currentYear = new Date().getFullYear();
     return (
         <main>
             <div className='glow-circle'></div>
@@ -61,7 +62,7 @@ export const LandingPage = () => {
                     <li>Privacy Policy</li>
                     <li>Contact</li>
                 </ul>
-                <p>&copy; 2025 TicketFlow. All right reserved.</p>
+                <p>&copy; {currentYear} TicketFlow. All right reserved.</p>
             </footer>
         </main>
         

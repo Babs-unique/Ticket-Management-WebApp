@@ -4,11 +4,13 @@ import { Navbar } from '../components/Navbar'
 import addTicketIcon from "../assets/plus.png"
 import editIcon from "../assets/pencil.png"
 import deleteIcon from "../assets/trash.png"
+import { useGetTicketsQuery } from "../feature/ticketApiSlice"
 
 
 export const Ticket = () => {
     const [open, setOpen] = useState(false);
     const [showPopUp , setShowPopUp] = useState(false)
+    const { data , isLoading , isError } = useGetTicketsQuery()
 
     const handleOpen = () =>{
         setOpen(prev => !prev)

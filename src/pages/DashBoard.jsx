@@ -4,6 +4,7 @@ import { Header } from "../components/Header"
 import ticketImage from "../assets/invoice.png"
 import openFile from "../assets/open-folder.png"
 import checkedImage from "../assets/comment.png"
+import { useTimeAgo } from "../hooks/useTimeago"
 import { useGetProfileQuery } from "../feature/authApiSlice"
 import { useGetTicketsQuery } from "../feature/ticketApiSlice"
 
@@ -22,13 +23,7 @@ export const DashBoard = () => {
   const popUpScreen = ()=>{
       setPopUp(prev => !prev)
   }
-
-  if(isLoading){
-    return <div>Loading...</div>
-  }
-  if(isError){
-    return <div>Error fetching tickets</div>
-  }
+  const timeAgo = useTimeAgo(data?.tickets.updatedAt)
   return (
     <main>
       <div className='glow-circle'></div>
@@ -41,21 +36,21 @@ export const DashBoard = () => {
                 <p>Total tickets</p>
                 <img src={ticketImage} alt="ticket illustration" className="dashboardImage one" width={30} height={30}/>
               </div>
-              <p>1284</p>
+              <p>{data?.total}</p>
           </div>
           <div className="card">
                   <div >
-                <p>Total tickets</p>
+                <p>Open tickets</p>
                 <img src={openFile} alt="Opened" width={30} height={30} className="dashboardImage two"/>
               </div>
-              <p>1284</p>
+              <p>{data?.openTickets}</p>
           </div>
           <div className="card">
                   <div>
-                <p>Total tickets</p>
+                <p>Resolved tickets</p>
                 <img src={checkedImage} alt="checked" width={30} height={30} className="dashboardImage three" />
               </div>
-              <p>1284</p>
+              <p>{data?.closedTickets}</p>
           </div>
         </div>
       </section>
@@ -70,6 +65,22 @@ export const DashBoard = () => {
             <p>STATUS</p>
             <p className="updated">LAST  UPDATED</p>
           </div>
+        </div>
+        <div className="ticket-list">
+          {
+            isLoading ? <p>Loading...</p> : isError ? <p>Error </p> : data.tickets.map((ticket) => (
+              <div className=" tickets-list" key={ticket._id}>
+                  <div>
+                    <p>{ticket.ticketId}</p>
+                    <p>{ticket.title}</p>
+                  </div>
+                  <div>
+                    <p>{ticket.status}</p>
+                    <p className="updated">{timeAgo}</p>
+                  </div>
+                </div>
+            ))
+          }
         </div>
       </section>
     </main>
