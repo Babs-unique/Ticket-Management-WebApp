@@ -4,6 +4,7 @@ import { Header } from "../components/Header"
 import ticketImage from "../assets/invoice.png"
 import openFile from "../assets/open-folder.png"
 import checkedImage from "../assets/comment.png"
+import clsx from "clsx"
 import { useTimeAgo } from "../hooks/useTimeago"
 import { useGetProfileQuery } from "../feature/authApiSlice"
 import { useGetTicketsQuery } from "../feature/ticketApiSlice"
@@ -75,7 +76,13 @@ export const DashBoard = () => {
                     <p>{ticket.title}</p>
                   </div>
                   <div>
-                    <p>{ticket.status}</p>
+                    <p className={
+                      clsx({
+                        open: ticket.status === "open",
+                        progress: ticket.status === "progress",
+                        closed: ticket.status === "closed",
+                      })
+                    }>{ticket.status}</p>
                     <p className="updated">{timeAgo}</p>
                   </div>
                 </div>

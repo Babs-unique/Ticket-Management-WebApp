@@ -5,12 +5,17 @@ import addTicketIcon from "../assets/plus.png"
 import editIcon from "../assets/pencil.png"
 import deleteIcon from "../assets/trash.png"
 import { useGetTicketsQuery } from "../feature/ticketApiSlice"
+import { useFilterByStatusQuery } from '../feature/ticketApiSlice'
 
 
 export const Ticket = () => {
     const [open, setOpen] = useState(false);
     const [showPopUp , setShowPopUp] = useState(false)
+    const [statusFilter, setStatusFilter] = useState('all');
     const { data , isLoading , isError } = useGetTicketsQuery()
+    const { data, isLoading ,  isError} = useFilterByStatusQuery(statusFilter)
+
+    console.log(data)
 
     const handleOpen = () =>{
         setOpen(prev => !prev)
@@ -45,23 +50,25 @@ return (
             <div className='ticket-search'>
             <input type="text" name="" id="" placeholder='Search tickets by title or description' />
             <div>
-                <p>All</p>
-                <p>Open</p>
-                <p>Progress</p>
-                <p>Closed</p>
+                <p onClick={() => setStatusFilter('all')}>All</p>
+                <p onClick={() => setStatusFilter('open')}>Open</p>
+                <p onClick={() => setStatusFilter('progress')}>Progress</p>
+                <p onClick={() => setStatusFilter('closed')}>Closed</p>
             </div>
             </div>
             <div className='ticket-show'>
-                <div className='tickets'>
-                <div>
-                    <h2>API integration of System</h2>
-                    <p>Need to connect API to my project for the completion of the project</p>
+                {isLoading ? <>Loading...</> : isError ? <p>Error fetching tickets</p> : data.tickets.map((ticket) => (
+                    <div className='tickets' key={ticket._id}>
+                    <div>
+                        <h2>{ticket?.title}</h2>
+                        <p>{ticket?.description}</p>
+                    </div>
+                    <div className='tickets-actions'>
+                        <img src={editIcon} alt="Edit Tickets" width={20} height={20} />
+                        <img src={deleteIcon} alt="" width={20} height={20} />
+                    </div>
                 </div>
-                <div className='tickets-actions'>
-                    <img src={editIcon} alt="Edit Tickets" width={20} height={20} />
-                    <img src={deleteIcon} alt="" width={20} height={20} />
-                </div>
-                </div>
+                ))}
             </div>
         </section>
         <img src={addTicketIcon} alt="Add ticket"  width={30} height={30} className='add-ticket'

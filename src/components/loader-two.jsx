@@ -19,7 +19,7 @@ const StyledWrapper = styled.div`
     --dim: 3rem;
     width: var(--dim);
     height: var(--dim);
-    position: relative;
+    position: absolute;
     top: 50%;
     left: 50%;
     translate(50%, -50%)

@@ -42,7 +42,7 @@ export const ticketApiSlice = api.injectEndpoints({
         }),
         searchTickets: builder.query({
             query: (query) => ({
-                url: `/api/tickets/search?query=${query}`,
+                url: `/api/tickets/search?q=${query}`,
                 method: 'GET',
             }),
             providesTags: ['Tickets']

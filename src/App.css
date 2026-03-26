@@ -183,6 +183,7 @@ footer{
   gap: 5px;
   padding-bottom: 20px;
   text-align: center;
+  margin-top: 20px;
 }
 footer ul{
   display: flex;
@@ -860,6 +861,11 @@ aside{
 .three {
   background-color: rgba(128, 128, 128, 0.301);
 } */
+.ticket-show{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 .add-ticket{
   background-color: #00FF88;
   padding: 5px;
@@ -876,6 +882,24 @@ aside{
   top: 20%;
   right: 5%;
   left: 5%;
+}
+.open{
+  background-color: var(--button-color);
+  padding: 5px 10px;
+  color: var(--tex-color) !important;
+  border-radius: 15px;
+}
+.closed{
+  background-color: var(--text-color-secondary);
+  padding: 5px 10px;
+  border-radius: 15px;
+    color: var(--tex-color) !important;
+}
+.progress{
+  background-color: var(--tex-color);
+  padding: 5px 10px;
+  border-radius: 15px;
+    color: white !important;
 }
 .dash,
 .dash-1{
@@ -1090,6 +1114,9 @@ aside{
   }
   .ticket-show{
     margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
   .ticket-search div p:hover,
   .ticket-search div p:active,
