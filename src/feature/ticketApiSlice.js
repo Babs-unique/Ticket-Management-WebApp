@@ -46,9 +46,25 @@ export const ticketApiSlice = api.injectEndpoints({
                 method: 'GET',
             }),
             providesTags: ['Tickets']
+        }),
+        filter: builder.query({
+            query: ({ status, q, page, limit }) => {
+        const params = new URLSearchParams();
+
+        if (status && status !== 'all') params.append('status', status);
+        if (q) params.append('q', q);
+        if (page) params.append('page', page);
+        if (limit) params.append('limit', limit);
+
+        return {
+        url: `/api/tickets/filter?${params.toString()}`,
+        method: 'GET',
+        };
+    },
+            providesTags: ['Tickets'],
         })
     })
 
 });
 
-export const { useGetTicketsQuery, useCreateTicketMutation, useUpdateTicketMutation, useDeleteTicketMutation, useFilterByStatusQuery, useSearchTicketsQuery } = ticketApiSlice;
+export const { useGetTicketsQuery, useCreateTicketMutation, useUpdateTicketMutation, useDeleteTicketMutation, useFilterByStatusQuery, useSearchTicketsQuery , useFilterQuery } = ticketApiSlice;
