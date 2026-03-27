@@ -8,12 +8,14 @@ import Loader from '../components/loader-two'
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { useDebounce } from 'use-debounce'
-import { useFilterQuery } from '../feature/ticketApiSlice'
+import { useFilterQuery , useUpdateTicketMutation , useDeleteTicketMutation } from '../feature/ticketApiSlice'
 
 
 export const Ticket = () => {
     const [open, setOpen] = useState(false);
     const [showPopUp , setShowPopUp] = useState(false)
+    const [modalAction , setModalAction] = useState("create")
+    const [selectedTicket, setSelectedTicket] = useState(null);
     const [statusFilter, setStatusFilter] = useState('all');
     const [searchQuery, setSearchQuery] = useState('');
     const [page, setPage] = useState(1);
@@ -22,7 +24,8 @@ export const Ticket = () => {
     const [debouncedSearchQuery] = useDebounce(searchQuery, 300);
 
     const { data, isLoading, isError } = useFilterQuery({ status: statusFilter, q: debouncedSearchQuery , page, limit: itemsPerPage });
-
+    const [updateTicket] = useUpdateTicketMutation();
+    const [deleteTicket] = useDeleteTicketMutation();
 
     console.log("Data in ticket page", data)
 
@@ -36,6 +39,11 @@ export const Ticket = () => {
 
     const handleNewTicket = () => {
         setShowPopUp(true)
+    }
+    const handleAddTicket = () => {
+        setShowPopUp(true);
+        setModalAction("create");
+        setSelectedTicket(null);
     }
 
     useEffect(() => {
@@ -81,8 +89,23 @@ return (
                         <p>{ticket?.description}</p>
                     </div>
                     <div className='tickets-actions'>
-                        <img src={editIcon} alt="Edit Tickets" width={20} height={20} />
-                        <img src={deleteIcon} alt="" width={20} height={20} />
+                        <img src={editIcon} 
+                        alt="Edit Tickets" 
+                        width={20} height={20}
+                        onClick={
+                            () => {
+                                setSelectedTicket(ticket)
+                                setShowPopUp(true)
+                                setModalAction("edit")
+                            }
+                        }
+                        
+
+                        />
+                        <img src={deleteIcon}
+                        alt=""
+                        width={20} height={20}
+                        />
                     </div>
                 </div>
                 ))) : <p>{data?.message || "No tickets found"}</p>}
@@ -113,15 +136,30 @@ return (
                         color="primary"
                         variant="outlined"
                         className = "pagination"
-                    />
+                        sx={{
+                            '& .MuiPaginationItem-root': {
+                                color: '#00FF88',
+                                borderColor: '#00FF88',
+                            },
+                            '& .Mui-selected': {
+                                backgroundColor: '#00FF88',
+                                color: '#000',
+                            }}}/>
                 </Stack>
             </div>
         </section>
         <img src={addTicketIcon} alt="Add ticket"  width={30} height={30} className='add-ticket'
         onClick={() => setShowPopUp(true)}
         />
-        {showPopUp &&   <PopUp
-        closePopUp={() => setShowPopUp(false)}
+        {showPopUp &&   <PopUp 
+        addTicket={handleAddTicket}
+        modalAction={modalAction}
+        selectedTicket={selectedTicket}
+        closePopUp={() => {
+        setSelectedTicket(null);
+        setShowPopUp(false);
+        setModalAction("create");
+    }}
         /> }
     </main>
 )

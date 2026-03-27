@@ -1,9 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Navbar } from '../components/Navbar'
+import { toast } from 'react-toastify'
+import { useUpdateProfileMutation , useChangePasswordMutation , useProfilePictureUploadMutation} from '../feature/settingApiSlice'
+import Loader from '../components/loader'
 
 export const SettingPage = () => {
     const [open, setOpen] = useState(false);
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState({
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: ""
+    });
+    const [updateProfile, { isLoading }] = useUpdateProfileMutation();
+    const [changePassword, { isLoading: isChangingPassword }] = useChangePasswordMutation();
+    const [uploadProfilePicture, { isLoading: isUploadingPicture }] = useProfilePictureUploadMutation();
+    console.log("Name in setting page", name)
+    console.log("Email in setting page", email)
+    console.log("Password in setting page", password)
 
     const handleOpen = () => {
         setOpen(prev => !prev)
@@ -24,6 +40,44 @@ export const SettingPage = () => {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
+        const handleProfileUpdate = async (e) => {
+            e.preventDefault();
+            try {
+                const updatedProfile = await updateProfile({ name, email }).unwrap();
+                console.log("Profile updated successfully:", updatedProfile);
+                toast.success("Profile updated successfully!");
+            }catch(err){
+                console.error("Error updating profile:", err);
+                toast.error("Failed to update profile. Please try again.")
+            }
+        }
+
+        const handlePasswordChange = async (e) => {
+            e.preventDefault();
+            try {
+                const response = await changePassword(password).unwrap();
+                console.log("Password changed successfully:", response);
+                toast.success("Password changed successfully!");
+            }catch(err){
+                console.error("Error changing password:", err);
+                const errorMessage = err?.data?.message || "Failed to change password. Please try again.";
+                toast.error(errorMessage)
+            }
+        }
+
+        const clearInputFields = () => {
+            setName("");
+            setEmail("");
+            setPassword({
+                currentPassword: "",
+                newPassword: "",
+                confirmPassword: ""
+            });
+        }
+
+        const uploadImage = () => {
+
+        }
 
 
 
@@ -48,6 +102,7 @@ export const SettingPage = () => {
                     <div className='image-settings'>
                         <div className='image-upload-settings'>
                             <img src="" alt="" className='image-upload'/>
+                            <input type="file" accept="image/*" />
                             <div>
                                 <button className='upload-image'>Upload new picture</button>
                         <button className='remove-image'>Remove</button>
@@ -56,17 +111,37 @@ export const SettingPage = () => {
                         
                         <div className='user-details'>
                             <div >
-                                    <label htmlFor="email">Full Name</label>
-                            <input type="text" placeholder='Full-name' />
+                                <label htmlFor="full-name">Full Name</label>
+                            <input type="text"
+                            id="full-name"
+                            placeholder='Full-name'
+                            value={name}
+                            onChange={(e) => {
+                                e.preventDefault();
+                                setName(e.target.value);
+                            }}
+                            />
                             </div>
                             <div>
                                 <label htmlFor="email">Email Address</label>
-                            <input type="email" placeholder='johndoe@gmail.com' />
+                            <input 
+                            type="email"
+                            id="email"
+                            placeholder='johndoe@gmail.com'
+                            value={email}
+                            onChange={(e) => {
+                                e.preventDefault()
+                                setEmail(e.target.value);
+                            }}/>
                             </div>
                         </div>
                         <div className='user-button'>
-                            <button>Cancel</button>
-                            <button>Save Changes</button>
+                            <button type='button' onClick={clearInputFields}>
+                                Cancel
+                            </button>
+                            {isLoading ? <Loader/> : <button type='submit' onClick={handleProfileUpdate}>
+                                Save Changes
+                            </button>}
                         </div>
                     </div>
                 </div>
@@ -78,20 +153,58 @@ export const SettingPage = () => {
                         <div className='account-password'>
                             <div>
                                 <label htmlFor="current-password">Current Password</label>
-                            <input type="password" id='current-password' />
+                            <input 
+                            type="password" 
+                            id='current-password'
+                            value={password.currentPassword}
+                            onChange={(e) => {
+                                e.preventDefault();
+                                setPassword(prev => ({
+                                    ...prev,
+                                    currentPassword: e.target.value
+                                }));
+                            }}
+                            />
                             </div>
                             <div>
                                     <label htmlFor="new-password">New Password</label>
-                            <input type="password" id='new-password' />
+                            <input 
+                            type="password" 
+                            id='new-password'
+                            value={password.newPassword}
+                            onChange={(e) => {
+                                e.preventDefault();
+                                setPassword(prev => ({
+                                    ...prev,
+                                    newPassword: e.target.value
+                                }));
+                            }}
+                            />
                             </div>
                             <div>
                                 <label htmlFor="confirm-password">Confirm New Password</label>
-                            <input type="password" id='confirm-password' />
+                            <input 
+                            type="password" 
+                            id='confirm-password'
+                            value={password.confirmPassword}
+                            onChange={(e) => {
+                                e.preventDefault();
+                                setPassword(prev => ({
+                                    ...prev,
+                                    confirmNewPassword: e.target.value
+                                }));
+                            }}
+                            />
                             </div>
                         </div>
                         <div className='account-button'>
-                            <button>Cancel</button>
-                            <button>Save Changes</button>
+                            <button
+                            type='button'
+                            onClick={clearInputFields}
+                            >Cancel</button>
+                            {isChangingPassword ? <Loader/> : <button type='submit'
+                            onClick={handlePasswordChange}
+                            >Save Changes</button>}
                         </div>
                     </div> 
                 </div>
