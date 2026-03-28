@@ -102,9 +102,11 @@ export const SettingPage = () => {
                     <div className='image-settings'>
                         <div className='image-upload-settings'>
                             <img src="" alt="" className='image-upload'/>
-                            <input type="file" accept="image/*" />
+                            <input type="file" accept="image/*" className='upload' id='upload' />
                             <div>
-                                <button className='upload-image'>Upload new picture</button>
+                                <label htmlFor="upload">
+                                    <button className='upload-image'>Upload new picture</button>
+                                </label>
                         <button className='remove-image'>Remove</button>
                             </div>
                         </div>

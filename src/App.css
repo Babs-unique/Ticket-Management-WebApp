@@ -921,6 +921,44 @@ aside{
 .Toastify{
   position: absolute;
 }
+.delete-modal {
+  position: absolute;
+  top: 30%;
+  left: 60%;
+  transform: translateX(-50%);
+  background-color: #1A1D27;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+}
+.delete-modal p {
+  margin: 0;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.delete-modal h2{
+  margin: 0;
+  text-align: center;
+}
+.delete-actions{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.delete-actions button:first-child{
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: white;
+}
+.delete-actions button:nth-child(2){
+  background-color: rgb(228, 56, 56);
+  color: var(--tex-color);
+}
+.delete-actions button{
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+}
 @media (min-width:320px) and (max-width : 767px) {
   body,html{
     overflow-x: hidden;

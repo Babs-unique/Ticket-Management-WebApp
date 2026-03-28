@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { PopUp } from '../components/PopUp'
 import { Navbar } from '../components/Navbar'
+import {DeleteModal} from '../components/delete-modal'
 import addTicketIcon from "../assets/plus.png"
 import editIcon from "../assets/pencil.png"
 import deleteIcon from "../assets/trash.png"
@@ -8,7 +9,7 @@ import Loader from '../components/loader-two'
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { useDebounce } from 'use-debounce'
-import { useFilterQuery , useUpdateTicketMutation , useDeleteTicketMutation } from '../feature/ticketApiSlice'
+import { useFilterQuery } from '../feature/ticketApiSlice'
 
 
 export const Ticket = () => {
@@ -20,13 +21,11 @@ export const Ticket = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [page, setPage] = useState(1);
     const [itemsPerPage , setItemsPerPage] = useState(10);  
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
     const [debouncedSearchQuery] = useDebounce(searchQuery, 300);
 
     const { data, isLoading, isError } = useFilterQuery({ status: statusFilter, q: debouncedSearchQuery , page, limit: itemsPerPage });
-    const [updateTicket] = useUpdateTicketMutation();
-    const [deleteTicket] = useDeleteTicketMutation();
-
     console.log("Data in ticket page", data)
 
     useEffect(() => {
@@ -35,6 +34,10 @@ export const Ticket = () => {
 
     const handleOpen = () =>{
         setOpen(prev => !prev)
+    }
+    const deleteModal = () => {
+        setDeleteModalOpen(prev => !prev)
+        
     }
 
     const handleNewTicket = () => {
@@ -105,6 +108,10 @@ return (
                         <img src={deleteIcon}
                         alt=""
                         width={20} height={20}
+                        onClick={() => {
+                            setSelectedTicket(ticket);
+                            deleteModal();
+                        }}
                         />
                     </div>
                 </div>
@@ -161,6 +168,10 @@ return (
         setModalAction("create");
     }}
         /> }
+        {deleteModalOpen && <DeleteModal 
+        closeModal={deleteModal}
+        selectedTicket={selectedTicket}
+        />}
     </main>
 )
 }
