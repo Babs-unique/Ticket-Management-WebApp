@@ -386,6 +386,14 @@ footer>p{
     width: 100%;
     text-align: center;
     padding: 10px 15px;
+    transform: translateY(500%);
+  }
+  .dashboard-link{
+    background-color: #00FF88;
+    width: 150px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    color: var(--tex-color) !important;
   }
 }
 .dashboard-link:focus,
@@ -1103,9 +1111,13 @@ aside{
     width: 100%;
     transition: all 1s ease;
     z-index: 1;
+    padding: 20px;
   }
   .header nav ul.open-nav{
     transform: translateX(30%) !important;
+    display: flex;
+    padding: 40px 0 0px 20px;
+    gap: 30px;
   }
   .header nav ul.settings-aside{
     transform: translateX(100%);
