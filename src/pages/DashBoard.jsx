@@ -37,21 +37,21 @@ export const DashBoard = () => {
                 <p>Total tickets</p>
                 <img src={ticketImage} alt="ticket illustration" className="dashboardImage one" width={30} height={30}/>
               </div>
-              <p>{data?.total}</p>
+              <p>{data?.total || 0}</p>
           </div>
           <div className="card">
                   <div >
                 <p>Open tickets</p>
                 <img src={openFile} alt="Opened" width={30} height={30} className="dashboardImage two"/>
               </div>
-              <p>{data?.openTickets}</p>
+              <p>{data?.openTickets || 0}</p>
           </div>
           <div className="card">
                   <div>
                 <p>Resolved tickets</p>
                 <img src={checkedImage} alt="checked" width={30} height={30} className="dashboardImage three" />
               </div>
-              <p>{data?.closedTickets}</p>
+              <p>{data?.closedTickets || 0}</p>
           </div>
         </div>
       </section>
