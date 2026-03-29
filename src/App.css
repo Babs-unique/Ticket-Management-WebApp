@@ -688,6 +688,7 @@ aside{
   height: 100px;
   border-radius: 50%;
   background-color: whitesmoke;
+  object-fit: contain;
 }
 .image-upload-settings{
   display: flex;
@@ -695,8 +696,16 @@ aside{
   gap: 20px;
   padding: 20px 0;
 }
+.upload{
+  display: none;
+}
 .upload-image{
   background-color: rgb(65, 60, 60);
+  text-align: center;
+  border: 1px solid white;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-weight: 700;
 }
 .remove-image{
   background-color: transparent;
@@ -883,6 +892,17 @@ aside{
   position:absolute;
   bottom: 8%;
   right: 8%;
+}
+.edit_picture{
+  position: relative;
+}
+.edit{
+  position: absolute;
+  bottom: 10%;
+  right: 5%;
+  background-color: var(--button-color);
+  padding: 2px;
+  border-radius: 50%;
 }
 .ticket{
   position: relative;

@@ -1,11 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { setCredentials } from '../feature/authSlice'
+import { useDispatch } from 'react-redux';
 import dashboardImage from "../assets/dashboard.png"
 import ticketImage from '../assets/ticket.png'
 import settingImage from "../assets/setting.png"
 import LogoutImage from '../assets/logout.png'
 
 export const Navbar = ({ open, onToggle, onNewTicket }) => {
+    const dispatch = useDispatch()
+    const handleLogout = () => {
+        dispatch(setCredentials(null))
+    }
     return (
         <aside className={open ? 'open-nav' : 'settings-aside'}>
             <div className='settings-top'>
@@ -44,7 +50,7 @@ export const Navbar = ({ open, onToggle, onNewTicket }) => {
                         <span>Sass Project</span>
                     </div>
                 </div>
-                <Link className='Logout'>
+                <Link to='/' className='Logout' onClick={handleLogout}>
                     <div>
                         <img src={LogoutImage} alt="Logout" width={30} height={30} className='logout-btn' />
                         <p>Logout</p>

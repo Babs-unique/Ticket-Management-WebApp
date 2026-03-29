@@ -4,6 +4,7 @@ import { Navbar } from '../components/Navbar'
 import { toast } from 'react-toastify'
 import { useUpdateProfileMutation , useChangePasswordMutation , useProfilePictureUploadMutation} from '../feature/settingApiSlice'
 import Loader from '../components/loader'
+import edit from "../assets/pencil.png"
 
 export const SettingPage = () => {
     const [open, setOpen] = useState(false);
@@ -14,13 +15,11 @@ export const SettingPage = () => {
         newPassword: "",
         confirmPassword: ""
     });
+    const [profilePicture, setProfilePicture] = useState(null);
     const [updateProfile, { isLoading }] = useUpdateProfileMutation();
     const [changePassword, { isLoading: isChangingPassword }] = useChangePasswordMutation();
     const [uploadProfilePicture, { isLoading: isUploadingPicture }] = useProfilePictureUploadMutation();
-    console.log("Name in setting page", name)
-    console.log("Email in setting page", email)
-    console.log("Password in setting page", password)
-
+    
     const handleOpen = () => {
         setOpen(prev => !prev)
     }
@@ -76,7 +75,19 @@ export const SettingPage = () => {
         }
 
         const uploadImage = () => {
+            if (!profilePicture) {
+                toast.error("Please select an image to upload.");
+                return
+            }
+            const formData = new FormData();
+            formData.append("profilePicture", profilePicture);
+            uploadProfilePicture(formData)
+        }
 
+        const handleImageChange = (e) => {
+            if(e.target.files && e.target.files[0]){
+                setProfilePicture(e.target.files[0])
+            }
         }
 
 
@@ -101,12 +112,20 @@ export const SettingPage = () => {
                     <p>Update your photos and personal details</p>
                     <div className='image-settings'>
                         <div className='image-upload-settings'>
-                            <img src="" alt="" className='image-upload'/>
-                            <input type="file" accept="image/*" className='upload' id='upload' />
-                            <div>
+                            <div className='edit_picture'>
+                                {profilePicture ? <img src={URL.createObjectURL(profilePicture)} alt="Profile avatar" className='image-upload' width={200} height={200}/> : <img src='' alt="Profile avatar" className='image-upload'/> }
                                 <label htmlFor="upload">
-                                    <button className='upload-image'>Upload new picture</button>
+                                <img src={edit} alt="" className="edit" width={30} height={30}/>
                                 </label>
+                            </div>
+                            <input type="file" accept="image/*" className='upload' id='upload' onChange={handleImageChange} />
+                            <div>
+                                <button className='upload-image' 
+                                onClick={uploadImage}
+                                type='submit'
+                                >
+                                    Upload
+                                </button    >
                         <button className='remove-image'>Remove</button>
                             </div>
                         </div>
