@@ -1160,7 +1160,7 @@ aside{
     background-color: gray;
   }
   .links-sections{
-    width: 85%;
+    width: 100%;
   }
   .logout {
     padding: 20px;
@@ -1204,7 +1204,6 @@ aside{
     font-size: 14px;
   }
   .tickets{
-    width: fit-content;
     padding: 15px;
   }
   .ticket section{
@@ -1238,9 +1237,10 @@ aside{
 }
 .user-profile,
 .account-settings{
-  width: max-content;
+  width: 100%;
   margin-top: 15px;
   padding: 20px 12px;
+  margin: 10px;
 }
 .setting-preference{
   margin: 0;
@@ -1270,7 +1270,7 @@ aside{
 
 aside {
   position: fixed;
-  top: 0;
+  top: 5%;
   right: -100%;
   width: 70%;
   height: 100%;
