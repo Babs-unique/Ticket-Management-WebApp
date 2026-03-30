@@ -558,6 +558,7 @@ aside{
 .ticket-search{
   display: flex;
   gap: 10px;
+  margin-top: 15px;
 }
 .ticket-search input{
   width: 60%;
@@ -894,7 +895,9 @@ aside{
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-top: 10px;
 }
+
 .add-ticket{
   background-color: #00FF88;
   padding: 5px;
@@ -1122,6 +1125,7 @@ aside{
   .open-nav{
     transform: translateX(0);
     width: 100%;
+    right: 0;
     transition: all 1s ease;
     z-index: 1;
     padding: 20px;
@@ -1181,6 +1185,7 @@ aside{
   }
   .ticket-search{
     flex-direction: column;
+
   }
   .ticket-search input{
     width:auto;
@@ -1266,7 +1271,7 @@ aside{
 aside {
   position: fixed;
   top: 0;
-  left: -100%;
+  right: -100%;
   width: 70%;
   height: 100%;
   z-index: 1000;
