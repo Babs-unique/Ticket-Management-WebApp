@@ -406,6 +406,7 @@ footer>p{
   display: flex;
   align-items: center;
   gap: 24%;
+  margin-left: 10px;
 }
 .tickets-list div:nth-child(2){
   gap: 30%;
@@ -1131,7 +1132,7 @@ aside{
   /* TICKETS LIST */
   .tickets {
     padding: 15px;
-    flex-direction: column;
+    flex-direction: row;
     gap: 15px;
   }
 
