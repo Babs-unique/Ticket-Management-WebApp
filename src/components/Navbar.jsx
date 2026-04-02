@@ -6,9 +6,31 @@ import dashboardImage from "../assets/dashboard.png"
 import ticketImage from '../assets/ticket.png'
 import settingImage from "../assets/setting.png"
 import LogoutImage from '../assets/logout.png'
+import { useGetProfileQuery } from '../feature/authApiSlice';
 
 export const Navbar = ({ open, onToggle, onNewTicket }) => {
     const dispatch = useDispatch()
+    const { data: profile } = useGetProfileQuery()
+    const abbreviateName = (name) => {
+        if (!name) return '';
+        const nameParts = name.split(' ');
+        if (nameParts.length === 1) {
+            return nameParts[0].charAt(0).toUpperCase();
+        } else {
+            return nameParts[0].charAt(0).toUpperCase() + nameParts[1].charAt(0).toUpperCase();
+        }
+        }
+        const profileName = (name) =>{
+        if (!name) return '';
+        const nameParts = name.split(' ');
+        if (nameParts.length === 1) {
+            return nameParts[0];
+        }
+        else {
+            return nameParts[0] ;
+        }
+        }
+
     const handleLogout = () => {
         dispatch(setCredentials(null))
     }
@@ -43,10 +65,10 @@ export const Navbar = ({ open, onToggle, onNewTicket }) => {
                 </button>
                 <div className='profile settings-profile'>
                     <div className='profile-card'>
-                        <span>BA</span>
+                        <span>{abbreviateName(profile?.name)}</span>
                     </div>
                     <div className='profile-name'>
-                        <span>Babatunde</span>
+                        <span>{profileName(profile?.name)}</span>
                         <span>Sass Project</span>
                     </div>
                 </div>
