@@ -32,9 +32,9 @@ function App() {
         <Route path='/login' element={<Login/>}/>
         <Route path='/SignUp' element={<SignUp/>}/>
         <Route path='/Dashboard' element={
-          /* <ProtectedRoutes> */
+          <ProtectedRoutes>
             <DashBoard/>
-          /*</ProtectedRoutes>*/
+          </ProtectedRoutes>
         }/>
         <Route path='/Ticket' element={
           <ProtectedRoutes>
