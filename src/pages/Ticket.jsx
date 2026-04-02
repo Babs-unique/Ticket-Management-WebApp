@@ -10,6 +10,7 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { useDebounce } from 'use-debounce'
 import { useFilterQuery } from '../feature/ticketApiSlice'
+import { useGetProfileQuery } from '../feature/authApiSlice';
 
 
 export const Ticket = () => {
@@ -27,6 +28,7 @@ export const Ticket = () => {
 
     const { data, isLoading, isError } = useFilterQuery({ status: statusFilter, q: debouncedSearchQuery , page, limit: itemsPerPage });
     console.log("Data in ticket page", data)
+    const { data: profile } = useGetProfileQuery()
 
     useEffect(() => {
         setPage(1); 
@@ -61,7 +63,7 @@ export const Ticket = () => {
     }, []);
 return (
     <main className='ticket'>
-        <Navbar open={open} onToggle={handleOpen} onNewTicket={handleNewTicket} />
+        <Navbar open={open} onToggle={handleOpen} onNewTicket={handleNewTicket} profile={profile} />
         <section>
             <div className='all-ticket'>
                 <h1 className='all-tickets'>All Tickets</h1>

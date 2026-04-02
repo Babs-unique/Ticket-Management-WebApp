@@ -6,11 +6,8 @@ import dashboardImage from "../assets/dashboard.png"
 import ticketImage from '../assets/ticket.png'
 import settingImage from "../assets/setting.png"
 import LogoutImage from '../assets/logout.png'
-import { useGetProfileQuery } from '../feature/authApiSlice';
-
-export const Navbar = ({ open, onToggle, onNewTicket }) => {
+export const Navbar = ({ open, onToggle, onNewTicket, profile }) => {
     const dispatch = useDispatch()
-    const { data: profile } = useGetProfileQuery()
     const abbreviateName = (name) => {
         if (!name) return '';
         const nameParts = name.split(' ');

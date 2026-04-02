@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import { useUpdateProfileMutation , useChangePasswordMutation , useProfilePictureUploadMutation} from '../feature/settingApiSlice'
 import Loader from '../components/loader'
 import edit from "../assets/pencil.png"
+import { useGetProfileQuery } from '../feature/authApiSlice';
 
 export const SettingPage = () => {
     const [open, setOpen] = useState(false);
@@ -19,6 +20,8 @@ export const SettingPage = () => {
     const [updateProfile, { isLoading }] = useUpdateProfileMutation();
     const [changePassword, { isLoading: isChangingPassword }] = useChangePasswordMutation();
     const [uploadProfilePicture, { isLoading: isUploadingPicture }] = useProfilePictureUploadMutation();
+
+    const { data: profile } = useGetProfileQuery();
     
     const handleOpen = () => {
         setOpen(prev => !prev)
@@ -94,7 +97,7 @@ export const SettingPage = () => {
 
     return (
         <main className='settings'>
-            <Navbar open={open} onToggle={handleOpen} onNewTicket={handleNewTicket} />
+            <Navbar open={open} onToggle={handleOpen} onNewTicket={handleNewTicket} profile={profile} />
             <section className='setting-preference'>
                 <div className='all-settings'>
                 <div>
