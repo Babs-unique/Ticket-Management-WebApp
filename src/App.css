@@ -144,8 +144,8 @@ p{
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  height: 200px;
-  padding: 5px 10px;
+  height: stretch;
+  padding: 10px 10px;
   border-radius: 10px;
   gap: 10px;
   background-color: var(--card-color);
