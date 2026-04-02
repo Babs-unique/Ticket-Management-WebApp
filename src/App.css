@@ -26,7 +26,7 @@ html, body {
   position: absolute;
   width: 750px;
   height: 260px;
-  background: radial-gradient(circle,rgba(0,255,153,0.3) 0%,rgba(0,255,153,0)80%);
+  background: radial-gradient(circle,rgba(0,255,153,0.3) 0%,rgba(0,255,153,0) 80%);
   z-index: 0;
   top: -5%;
   left: 22%;
@@ -1076,7 +1076,7 @@ aside{
   .ticket-metrics,
   .tickets-list {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 20px;
   }
 
