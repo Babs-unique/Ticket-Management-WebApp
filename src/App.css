@@ -1077,7 +1077,7 @@ aside{
   .tickets-list {
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    justify-content: space-between;
   }
 
   .ticket-metrics div,
@@ -1284,6 +1284,11 @@ aside{
   .ticket-list {
     width: 100%;
   }
+  .ticket-list div {
+    padding: 15px 5px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
 }
 
 /* ============ TABLET RESPONSIVE STYLES ============ */
