@@ -29,6 +29,7 @@ export const Ticket = () => {
     const { data, isLoading, isError } = useFilterQuery({ status: statusFilter, q: debouncedSearchQuery , page, limit: itemsPerPage });
     console.log("Data in ticket page", data)
     const { data: profile } = useGetProfileQuery()
+    const profileData = profile.user
 
     useEffect(() => {
         setPage(1); 
@@ -63,7 +64,7 @@ export const Ticket = () => {
     }, []);
 return (
     <main className='ticket'>
-        <Navbar open={open} onToggle={handleOpen} onNewTicket={handleNewTicket} profile={profile} />
+        <Navbar open={open} onToggle={handleOpen} onNewTicket={handleNewTicket} profile={profileData} />
         <section>
             <div className='all-ticket'>
                 <h1 className='all-tickets'>All Tickets</h1>

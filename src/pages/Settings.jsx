@@ -22,6 +22,7 @@ export const SettingPage = () => {
     const [uploadProfilePicture, { isLoading: isUploadingPicture }] = useProfilePictureUploadMutation();
 
     const { data: profile } = useGetProfileQuery();
+    const profileData = profile.user
     
     const handleOpen = () => {
         setOpen(prev => !prev)
@@ -97,7 +98,7 @@ export const SettingPage = () => {
 
     return (
         <main className='settings'>
-            <Navbar open={open} onToggle={handleOpen} onNewTicket={handleNewTicket} profile={profile} />
+            <Navbar open={open} onToggle={handleOpen} onNewTicket={handleNewTicket} profile={profileData} />
             <section className='setting-preference'>
                 <div className='all-settings'>
                 <div>
